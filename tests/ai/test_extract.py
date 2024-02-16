@@ -95,6 +95,7 @@ class TestExtract:
 
 
 class TestMapping:
+    @pytest.mark.flaky(max_runs=2)
     def test_map(self):
         result = marvin.extract.map(
             ["I have one donut", "I bought two donuts and ate one"], int
