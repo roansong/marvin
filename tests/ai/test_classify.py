@@ -85,16 +85,16 @@ class TestClassify:
         @pytest.mark.parametrize(
             "user_input, expected_selection",
             [
-                ("I want to do an event with Marvin!", "public relations"),
+                ("I wanna get y'all in a room together", "events"),
                 ("Well FooCo offered me a better deal", "sales"),
-                ("*angry noises*", "support"),
+                ("*angry noises*", "customer support"),
             ],
         )
         async def test_call_routing(self, user_input, expected_selection):
             class Department(Enum):
                 SALES = "sales"
-                SUPPORT = "support"
-                PR = "public relations"
+                CUSTOMER_SUPPORT = "customer support"
+                EVENTS = "events"
 
             def router(transcript: str) -> Department:
                 return marvin.classify(
