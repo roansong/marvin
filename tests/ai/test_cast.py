@@ -27,7 +27,9 @@ class TestCast:
             assert result == [4, 5, 6]
 
         def test_cast_text_to_list_of_floats(self):
-            result = marvin.cast("1.1, 2.2, 3.3", list[float])
+            result = marvin.cast(
+                "1.1 2.2 3.3", list[float], instructions="do not round"
+            )
             assert result == [1.1, 2.2, 3.3]
 
         def test_cast_text_to_bool(self):

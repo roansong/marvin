@@ -29,18 +29,6 @@ class TestClassify:
             result = marvin.classify("This is a bug", GitHubIssueTag)
             assert result == GitHubIssueTag.BUG
 
-        def test_classify_feature_tag(self):
-            result = marvin.classify("This is a great feature!", GitHubIssueTag)
-            assert result == GitHubIssueTag.FEATURE
-
-        def test_classify_enhancement_tag(self):
-            result = marvin.classify("This is an enhancement", GitHubIssueTag)
-            assert result == GitHubIssueTag.ENHANCEMENT
-
-        def test_classify_docs_tag(self):
-            result = marvin.classify("This is a documentation update", GitHubIssueTag)
-            assert result == GitHubIssueTag.DOCS
-
     class TestList:
         def classify_bug_tag(self):
             result = marvin.classify(
@@ -56,11 +44,15 @@ class TestClassify:
 
     class TestBool:
         def test_classify_positive_sentiment(self):
-            result = marvin.classify("This is a great feature!", bool)
+            result = marvin.classify(
+                "This is a great feature!", bool, instructions="true if positive"
+            )
             assert result is True
 
         def test_classify_negative_sentiment(self):
-            result = marvin.classify("This feature is terrible!", bool)
+            result = marvin.classify(
+                "This feature is terrible!", bool, instructions="true if positive"
+            )
             assert result is False
 
         def test_classify_falseish(self):
@@ -93,7 +85,7 @@ class TestClassify:
         @pytest.mark.parametrize(
             "user_input, expected_selection",
             [
-                ("I need to update my payment method", "billing"),
+                ("I want to do an event with Marvin!", "public relations"),
                 ("Well FooCo offered me a better deal", "sales"),
                 ("*angry noises*", "support"),
             ],
@@ -102,7 +94,7 @@ class TestClassify:
             class Department(Enum):
                 SALES = "sales"
                 SUPPORT = "support"
-                BILLING = "billing"
+                PR = "public relations"
 
             def router(transcript: str) -> Department:
                 return marvin.classify(

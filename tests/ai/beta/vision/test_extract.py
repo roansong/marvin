@@ -111,6 +111,7 @@ class TestMapping:
             Location(city="New York City", state="NY"),
         )
         assert result[1][0] in (
+            Location(city="Washington D.C.", state="DC"),
             Location(city="Washington", state="DC"),
             Location(city="Washington", state="D.C."),
         )

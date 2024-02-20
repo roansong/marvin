@@ -66,8 +66,10 @@ class TestVisionCast:
 
     def test_cast_dog(self):
         class Animal(BaseModel):
-            type: str = Field(description="The type of animal (cat, bird, etc.)")
-            primary_color: str
+            type: str = Field(
+                description="The type of animal (cat, bird, etc.) - do not distinguish between species"
+            )
+            primary_color: str = Field(description="just the color")
             is_solid_color: bool
 
         img = marvin.beta.Image(
